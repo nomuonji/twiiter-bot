@@ -57,6 +57,15 @@ const cronJob = new cron({
 });
 
 const port = process.env.PORT || 8000;
-server.createServer(onRequest).listen(port,() => {
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/plain; charset=utf-8'
+  });
+  res.write('This app is twiiter bot.');
+  res.end();
+});
+
+server.listen(port,() => {
   console.log("Listening on" + port);
 });
