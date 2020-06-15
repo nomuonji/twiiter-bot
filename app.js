@@ -1,7 +1,7 @@
 'use strict';
 const Twit = require('twit');
 const cron = require('cron').CronJob;
-const PORT = process.env.PORT || 5000;
+const server = require('http');
 
 console.log('app.jsを実行しました');
 
@@ -11,8 +11,6 @@ const twitter = new Twit({
   access_token: process.env.TWIBOT_ACCESS_TOKEN,
   access_token_secret: process.env.TWIBOT_ACCESS_TOKEN_SECRET
 });
-
-console.log(twitter);
 
 let tweetsIds = [];//「RT企画」が含まれるツイートIDを抽出
 
@@ -56,4 +54,9 @@ const cronJob = new cron({
   onTick: function() {
     retweetIncludeRtproject();
   }
+});
+
+const port = process.env.PORT || 8000;
+server.createServer(onRequest).listen(port,() => {
+  console.log("Listening on" + port);
 });
