@@ -1,0 +1,13 @@
+{
+  "name": "BOT_darkrai",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+    "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "cron": "1.7.0",
+    "twit": "2.2.11"
+  }
+}
