@@ -1,6 +1,7 @@
 'use strict';
 const Twit = require('twit');
 const cron = require('cron').CronJob;
+const PORT = process.env.PORT || 5000;
 
 const twitter = new Twit({
   consumer_key: process.env.TWIBOT_CONSUMER_KEY,
