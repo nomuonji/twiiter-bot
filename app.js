@@ -1,7 +1,7 @@
 'use strict';
 const Twit = require('twit');
 const cron = require('cron').CronJob;
-const server = require('http');
+const http = require('http');
 
 console.log('app.jsを実行しました');
 
