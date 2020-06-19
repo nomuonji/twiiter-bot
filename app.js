@@ -17,7 +17,7 @@ let tweetsIds = [];//「RT企画」が含まれるツイートIDを抽出
 // リツイート企画のツイートを配列(tweetsIds)に入れる→配列のIDをリツイート
 function retweetIncludeRtproject() {
   tweetsIds = [];
-  twitter.get('/search/tweets', { q:'%23RT企画', count: '3', result_type:'recent'}, function(error, tweets, response) {
+  twitter.get('/search/tweets', { q:'%23RT企画', count: '5', result_type:'recent'}, function(error, tweets, response) {
     if (error) console.log(error);
 
     tweets.statuses.forEach((tweet) => {
