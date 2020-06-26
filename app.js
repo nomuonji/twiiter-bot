@@ -13,6 +13,7 @@ const twitter = new Twit({
 });
 
 let tweetsIds = [];//「RT企画」が含まれるツイートIDを抽出
+let botTweetsIDs = [];//botのツイートID用
 
 // リツイート企画のツイートを配列(tweetsIds)に入れる→配列のIDをリツイート
 function retweetIncludeRtproject() {
@@ -35,9 +36,25 @@ function retweetIncludeRtproject() {
   });
 }
 
+// botのツイートIDを配列に入れる→配列のIDをリツイート
+function retweetBotTweets() {
+  botTweetsIDs = [];
+  twitter.get('/statuses/user_timeline.json?user_id=1209181292626997256&count=1', {}, function(error, tweets, response) {
+    if(error) console.log(error);
+
+    tweets.forEach((tweet) => {
+      botTweetsIDs.push(tweet.id_str);
+    })
+
+    console.log(botTweetsIDs);
+    retweet(botTweetsIDs);
+
+  })
+}
+
 // リツイートする
 function retweet(tweetsIds) {
-  console.log(tweetsIds);
+
   tweetsIds.forEach((tweetsId) => {
     twitter.post(`/statuses/retweet/${tweetsId}`,{}, function(error, tweets, response) {
       if (error) console.log(error);
@@ -53,6 +70,14 @@ const cronJob = new cron({
   start: true,
   onTick: function() {
     retweetIncludeRtproject();
+  }
+});
+
+const cronJob2 = new cron({
+  cronTime: '00 30 5,9,12,14,18,20 * * *',//5:30,9:30,12:30,14:30,18:30,20:30に実行
+  start: true,
+  onTick: function() {
+    retweetBotTweets();
   }
 });
 
